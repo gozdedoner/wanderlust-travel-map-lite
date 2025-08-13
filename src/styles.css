@@ -1,0 +1,262 @@
+:root {
+  --bg: #0b0c10;
+  --panel: #121318;
+  --text: #e6f1ff;
+  --muted: #9aa6b2;
+  --accent: #7dd3fc;
+  --accent-2: #a78bfa;
+  --danger: #ef4444;
+  --border: #1f2330;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial,
+    Apple Color Emoji, Segoe UI Emoji;
+  background: radial-gradient(1000px 600px at 20% -10%, #122034 0%, #0b0c10 50%)
+    fixed;
+  color: var(--text);
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(18, 19, 24, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 18px;
+}
+.brand .logo {
+  font-size: 20px;
+}
+.brand .muted {
+  color: var(--muted);
+  margin-left: 6px;
+  font-weight: 500;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.controls button,
+.controls label.import {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: #0b0c10;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.controls .danger {
+  background: var(--danger);
+  color: white;
+}
+.controls .filter {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  border-radius: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.controls .filter select {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  outline: none;
+}
+.controls .import input[type="file"] {
+  display: none;
+}
+
+.stats {
+  display: flex;
+  gap: 12px;
+  color: var(--muted);
+}
+
+main {
+  padding: 10px;
+}
+
+.map-wrap {
+  position: relative;
+  height: calc(100vh - 160px);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.locate-btn {
+  position: absolute;
+  z-index: 1000;
+  right: 12px;
+  top: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.popup {
+  display: grid;
+  gap: 8px;
+  min-width: 160px;
+}
+.popup-title {
+  font-weight: 700;
+}
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.badge.visited {
+  background: #22c55e;
+  color: #06200f;
+}
+.badge.wishlist {
+  background: #f59e0b;
+  color: #2a1900;
+}
+.popup-actions {
+  display: flex;
+  gap: 8px;
+}
+.popup-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.popup-actions .danger {
+  background: var(--danger);
+  color: white;
+}
+
+.footer {
+  padding: 8px 16px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: rgba(18, 19, 24, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* === Responsive iyileştirmeler (ekle/sona koy) === */
+
+/* Kontroller sarmalansın ve satıra göre genişlesin */
+.controls {
+  flex-wrap: wrap;
+}
+.controls .filter,
+.controls button,
+.controls label.import {
+  flex: 1 1 240px; /* kart gibi dizilsin */
+  min-width: 220px; /* iki sütun için alt sınır */
+}
+.controls input[type="range"] {
+  width: 100%;
+}
+
+/* Harita yüksekliği ekrana uyumlu olsun */
+.map-wrap {
+  height: clamp(55vh, 100vh - 180px, 78vh);
+}
+
+/* Tablet ve altı */
+@media (max-width: 1024px) {
+  .topbar {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .controls {
+    gap: 8px;
+  }
+  .stats {
+    display: none;
+  } /* opsiyonel: üstteki küçük istatistikleri gizle */
+  .map-wrap {
+    height: clamp(52vh, 64vh, 70vh);
+  }
+}
+
+/* Küçük ekranlar */
+@media (max-width: 768px) {
+  .brand {
+    font-size: 16px;
+  }
+  .controls .filter,
+  .controls button,
+  .controls label.import {
+    flex: 1 1 100%; /* tek sütun */
+    min-width: 0;
+  }
+  main {
+    padding: 8px;
+  }
+  .map-wrap {
+    height: clamp(50vh, 58vh, 64vh);
+  }
+}
+
+/* Çok küçük ekranlar */
+@media (max-width: 480px) {
+  .topbar {
+    padding: 8px 12px;
+  }
+  .controls button,
+  .controls label.import {
+    width: 100%;
+    padding: 10px 12px;
+  }
+  .controls .filter {
+    padding: 8px;
+  }
+  .map-wrap {
+    border-radius: 12px;
+  }
+  .locate-btn {
+    right: 8px;
+    top: 8px;
+    width: 34px;
+    height: 34px;
+  }
+}
